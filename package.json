@@ -1,0 +1,13 @@
+{
+  "name": "tasteweave",
+  "version": "1.0.0",
+  "description": "A taste graph planner: rate culture sliders, get explained matches, an agentic afternoon plan, and a canvas taste signature. Synthetic dataset, zero dependencies.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/"
+  },
+  "keywords": ["taste-graph", "recommendation", "planner", "static-site", "canvas"],
+  "author": "Aariv Patel",
+  "license": "MIT"
+}
