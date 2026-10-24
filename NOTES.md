@@ -46,3 +46,15 @@ Reproduce with `npm test` (or `node --test tests/`).
 ## Summary
 
 TasteWeave is complete and working as specified: a GitHub Pages ready single page app with a transparent similarity engine over a labeled synthetic dataset, an explained discovery feed, a budget and mood aware agentic itinerary planner with a step by step agent log, and two live canvas visualizations of the taste signature. It passes 51 tests with 283 assertions in under a second, claims nothing beyond what ships, and documents the Qloo API seam precisely.
+
+## Refinement Pass 2026-10-24
+
+A presentation only pass over the deployed page. No engine, data, or feature changes.
+
+- Wiring audit: every id app.js references exists in the markup, there are no duplicate ids, no dead event listeners, and a normal load reaches no console errors.
+- Contrast audit: computed WCAG ratios from the CSS tokens for every text pair on its real background. All clear AA, most clear AAA. The weakest pair is muted mono text on the lightest card at about 5.1 to 1.
+- Fixed: the hero loom panel carried an aria-label on a plain div. Assistive tech ignores labels on generic containers, so it was dead markup; removed it because the canvas and the master threads fieldset are already labeled.
+- Fixed: at 320 px the top bar row overflowed its flex line and the overflow clip cut off the section nav. The row now wraps, so the nav stays reachable on the narrowest phones.
+- Verified: no horizontal overflow at 320 px anywhere else (every grid collapses or wraps), reduced motion is honored in CSS and JS, the idle weave already pauses when the tab is hidden or scrolled away, copy has no em or en dashes, no emoji, no all caps kickers.
+- Residual risk: the reveal choreography hides sections only when the html element has the js class, which an inline script sets before app.js loads. If that one local file ever failed to load, sections would stay invisible. The standard tradeoff, accepted to avoid a flash of unstyled reveals; noted here for honesty.
+- Tests before the pass: 51 passed, 0 failed. Tests after: 51 passed, 0 failed.
