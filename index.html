@@ -4,94 +4,139 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TasteWeave: A Taste Graph Planner</title>
-  <meta name="description" content="Rate twenty culture sliders and TasteWeave scores a labeled synthetic taste graph in the open: explained matches, an agentic afternoon plan with a decision trace, and a canvas taste signature.">
+  <meta name="description" content="Rate twenty taste sliders and TasteWeave scores a labeled synthetic taste graph in the open: explained matches, an agentic afternoon plan with a decision trace, and a canvas taste signature you can watch move.">
   <meta name="color-scheme" content="dark">
-  <meta name="theme-color" content="#131009">
-  <link rel="icon" href="data:,">
+  <meta name="theme-color" content="#17120D">
+  <meta property="og:title" content="TasteWeave: A Taste Graph Planner">
+  <meta property="og:description" content="Pull five master threads, watch your taste weave redraw itself, then let a transparent planner assemble your afternoon. Synthetic dataset, computed entirely in your browser.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20fill='%2317120D'/%3E%3Cpath%20d='M4%2011%20C%2010%205,%2018%2017,%2028%209'%20stroke='%23E5A83B'%20stroke-width='2.4'%20fill='none'%20stroke-linecap='round'/%3E%3Cpath%20d='M4%2018%20C%2012%2025,%2020%2011,%2028%2017'%20stroke='%23E07A5F'%20stroke-width='2.4'%20fill='none'%20stroke-linecap='round'/%3E%3Cpath%20d='M4%2025%20C%2010%2019,%2020%2029,%2028%2025'%20stroke='%237E9CB9'%20stroke-width='2.4'%20fill='none'%20stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
   <script type="module" src="app.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "TasteWeave",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "description": "A taste graph planner: rate twenty culture sliders, get explained matches, an agentic afternoon plan with a decision trace, and a canvas taste signature. Synthetic dataset, computed locally.",
+    "author": { "@type": "Person", "name": "Aariv Patel" },
+    "license": "https://opensource.org/licenses/MIT",
+    "isAccessibleForFree": true
+  }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="topbar">
-    <a class="brand" href="#top">
-      <svg class="brand-mark" viewBox="0 0 32 32" width="28" height="28" aria-hidden="true" focusable="false">
-        <path d="M4 10 C 10 4, 16 16, 28 8" stroke="#E5A83B" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
-        <path d="M4 17 C 12 24, 20 10, 28 16" stroke="#E07A5F" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
-        <path d="M4 24 C 10 18, 20 28, 28 24" stroke="#7E9CB9" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
-      </svg>
-      <span class="brand-name">TasteWeave</span>
-    </a>
-    <nav class="site-nav" aria-label="Sections">
-      <a href="#profile">Profile</a>
-      <a href="#discover">Discover</a>
-      <a href="#planner">Planner</a>
-      <a href="#signature">Signature</a>
-    </nav>
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="TasteWeave, back to top">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true" focusable="false">
+          <path d="M4 11 C 10 5, 18 17, 28 9" stroke="#E5A83B" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
+          <path d="M4 18 C 12 25, 20 11, 28 17" stroke="#E07A5F" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
+          <path d="M4 25 C 10 19, 20 29, 28 25" stroke="#7E9CB9" stroke-width="2.4" fill="none" stroke-linecap="round"></path>
+        </svg>
+        <span class="brand-name">TasteWeave</span>
+      </a>
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#profile">Studio</a>
+        <a href="#discover">Catalog</a>
+        <a href="#planner">Planner</a>
+        <a href="#signature">Signature</a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
 
     <section class="hero reveal" id="top" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <h1 id="hero-title">Taste, Woven Into an Afternoon</h1>
-        <p class="lede">Rate twenty sliders across music, film, food, books, and places. TasteWeave scores a labeled synthetic taste graph in the open: matches that show their math, an afternoon plan that logs every decision, and a signature you can watch move.</p>
-        <div class="hero-actions">
-          <a class="btn" href="#profile">Rate Your Taste</a>
-          <a class="btn btn-ghost" href="#planner">Plan an Afternoon</a>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title">Pull a Thread, Watch Your Taste Answer</h1>
+          <p class="lede">Set five master threads and the loom answers at once. Twenty fine sliders shape it further, an open catalog scores itself against you, and the afternoon planner writes down every choice it makes. Everything runs in this tab, on a labeled synthetic dataset.</p>
+          <div class="hero-actions">
+            <a class="btn btn-solid" href="#profile">Open the Studio</a>
+            <a class="btn btn-ghost" href="#discover">Browse the Catalog</a>
+          </div>
         </div>
-        <ul class="hero-stats" aria-label="What runs on this page">
-          <li><strong>20</strong><span>Taste Attributes</span></li>
-          <li><strong>40</strong><span>Catalog Entries</span></li>
-          <li><strong>8</strong><span>Neighbor Archetypes</span></li>
-          <li><strong>0</strong><span>Network Calls</span></li>
-        </ul>
+
+        <div class="loom-panel" aria-label="Live taste signature">
+          <div class="loom-canvas-wrap">
+            <canvas id="heroWeave" role="img" aria-label="A woven drawing of your current taste profile, one colored thread per culture domain, redrawn as the sliders move"></canvas>
+          </div>
+          <fieldset class="master-threads" id="masterThreads">
+            <legend>Master Threads</legend>
+            <p class="master-hint">Each thread sets its whole domain at once. Fine tuning lives in the studio below.</p>
+          </fieldset>
+          <p id="signatureSummary" class="signature-summary" aria-live="polite"></p>
+        </div>
       </div>
-      <figure class="hero-art">
-        <canvas id="heroWeave" role="img" aria-label="A woven drawing of your current taste profile, one colored thread per culture domain, redrawn as the sliders move"></canvas>
-      </figure>
+
+      <ul class="hero-stats" aria-label="What runs on this page">
+        <li><span class="stat-num">20</span><span class="stat-label">Taste Attributes</span></li>
+        <li><span class="stat-num">40</span><span class="stat-label">Catalog Entries</span></li>
+        <li><span class="stat-num">8</span><span class="stat-label">Neighbor Archetypes</span></li>
+        <li><span class="stat-num">0</span><span class="stat-label">Network Calls</span></li>
+      </ul>
     </section>
 
     <section class="section reveal" id="profile" aria-labelledby="profile-title">
-      <div class="section-head">
-        <h2 id="profile-title">Profile Studio</h2>
-        <p>Drag each slider toward the word that sounds like you. Every change reweaves the drawing above, rescores the feed below, and updates the planner. Your profile is saved to this browser only.</p>
-      </div>
+      <header class="section-head">
+        <div class="rule-mark" aria-hidden="true">
+          <svg class="thread-mark" viewBox="0 0 96 14" width="96" height="14" focusable="false">
+            <path d="M2 4 C 24 1, 48 12, 94 3" stroke="#E5A83B" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 8 C 30 14, 60 3, 94 9" stroke="#E07A5F" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 12 C 26 8, 56 15, 94 12" stroke="#7E9CB9" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+          </svg>
+          <span class="rule-line"></span>
+        </div>
+        <h2 id="profile-title">The Profile Studio</h2>
+        <p class="section-dek">Drag each slider toward the word that sounds like you. Every change reweaves the drawings on this page, rescores the catalog, and updates the planner. Your profile is saved to this browser only.</p>
+      </header>
       <div class="profile-tools">
         <button type="button" id="randomize" class="btn btn-ghost">Scatter the Sliders</button>
         <button type="button" id="resetProfile" class="btn btn-ghost">Reset to Neutral</button>
-        <p id="signatureSummary" class="signature-summary" aria-live="polite"></p>
       </div>
       <div class="domain-grid">
         <fieldset class="domain-card" data-domain="music">
-          <legend><span class="dot" aria-hidden="true"></span>Music</legend>
+          <legend><span class="dot" aria-hidden="true"></span>Music<span class="domain-mean" id="mean-music">Mean 50</span></legend>
           <div class="slider-rows"></div>
         </fieldset>
         <fieldset class="domain-card" data-domain="film">
-          <legend><span class="dot" aria-hidden="true"></span>Film</legend>
+          <legend><span class="dot" aria-hidden="true"></span>Film<span class="domain-mean" id="mean-film">Mean 50</span></legend>
           <div class="slider-rows"></div>
         </fieldset>
         <fieldset class="domain-card" data-domain="food">
-          <legend><span class="dot" aria-hidden="true"></span>Food</legend>
+          <legend><span class="dot" aria-hidden="true"></span>Food<span class="domain-mean" id="mean-food">Mean 50</span></legend>
           <div class="slider-rows"></div>
         </fieldset>
         <fieldset class="domain-card" data-domain="books">
-          <legend><span class="dot" aria-hidden="true"></span>Books</legend>
+          <legend><span class="dot" aria-hidden="true"></span>Books<span class="domain-mean" id="mean-books">Mean 50</span></legend>
           <div class="slider-rows"></div>
         </fieldset>
         <fieldset class="domain-card" data-domain="places">
-          <legend><span class="dot" aria-hidden="true"></span>Places</legend>
+          <legend><span class="dot" aria-hidden="true"></span>Places<span class="domain-mean" id="mean-places">Mean 50</span></legend>
           <div class="slider-rows"></div>
         </fieldset>
       </div>
     </section>
 
     <section class="section reveal" id="discover" aria-labelledby="discover-title">
-      <div class="section-head">
-        <h2 id="discover-title">Discovery Feed</h2>
-        <p>The catalog is synthetic, invented for this project and labeled as such. Similarity is a transparent gap calculation, and every card shows the gaps behind its score.</p>
-      </div>
+      <header class="section-head">
+        <div class="rule-mark" aria-hidden="true">
+          <svg class="thread-mark" viewBox="0 0 96 14" width="96" height="14" focusable="false">
+            <path d="M2 4 C 24 1, 48 12, 94 3" stroke="#E5A83B" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 8 C 30 14, 60 3, 94 9" stroke="#E07A5F" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 12 C 26 8, 56 15, 94 12" stroke="#7E9CB9" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+          </svg>
+          <span class="rule-line"></span>
+        </div>
+        <h2 id="discover-title">The Discovery Catalog</h2>
+        <p class="section-dek">Forty invented entries across five domains, labeled synthetic everywhere they appear. Similarity is a transparent gap calculation, and every card lists the numbers behind its score.</p>
+      </header>
       <fieldset class="filter-bar">
         <legend class="visually-hidden">Filter the feed by domain</legend>
         <label><input type="radio" name="domain-filter" value="all" checked><span>Everything</span></label>
@@ -102,22 +147,31 @@
         <label><input type="radio" name="domain-filter" value="places"><span>Places</span></label>
       </fieldset>
       <div class="feed-grid" id="feedGrid"></div>
-      <div class="neighbors-head">
-        <h3>Taste Neighbors</h3>
-        <p class="section-note">Neighbor archetypes are synthetic taste profiles, not real people. Overlap is scored across all twenty attributes, and the biggest difference is shown on purpose.</p>
+
+      <div class="neighbors-band">
+        <h3 id="neighbors-title">Taste Neighbors</h3>
+        <p class="section-note">Neighbor archetypes are synthetic taste profiles, not real people. Overlap is scored across all twenty attributes, and the sharpest difference is shown on purpose.</p>
+        <div class="neighbor-list" id="neighborGrid" role="list"></div>
       </div>
-      <div class="neighbor-grid" id="neighborGrid"></div>
     </section>
 
     <section class="section reveal" id="planner" aria-labelledby="planner-title">
-      <div class="section-head">
-        <h2 id="planner-title">Afternoon Planner</h2>
-        <p>Set a budget, tilt four moods, and the planner assembles a session: one thing to listen to, one to watch, one to cook, one to read. The agent log shows every decision in order.</p>
-      </div>
+      <header class="section-head">
+        <div class="rule-mark" aria-hidden="true">
+          <svg class="thread-mark" viewBox="0 0 96 14" width="96" height="14" focusable="false">
+            <path d="M2 4 C 24 1, 48 12, 94 3" stroke="#E5A83B" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 8 C 30 14, 60 3, 94 9" stroke="#E07A5F" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 12 C 26 8, 56 15, 94 12" stroke="#7E9CB9" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+          </svg>
+          <span class="rule-line"></span>
+        </div>
+        <h2 id="planner-title">The Afternoon Planner</h2>
+        <p class="section-dek">Set a budget, tilt four moods, and the planner assembles a session: one thing to listen to, one to watch, one to cook, one to read. The ledger writes down every decision in order.</p>
+      </header>
       <div class="planner-grid">
         <form id="plannerForm" class="planner-controls">
           <fieldset class="planner-fieldset">
-            <legend>Afternoon Budget</legend>
+            <legend>Session Budget</legend>
             <div class="slider-row">
               <div class="slider-head">
                 <label for="budgetRange">Budget for the session</label>
@@ -162,14 +216,14 @@
               <p class="mood-blurb">Strange, new, exploratory picks.</p>
             </div>
           </fieldset>
-          <button type="submit" class="btn" id="planButton">Plan My Afternoon</button>
+          <button type="submit" class="btn btn-solid" id="planButton">Plan My Afternoon</button>
         </form>
         <section class="agent-log" aria-labelledby="agentlog-title">
-          <h3 id="agentlog-title">Agent Log</h3>
-          <p class="section-note">Each run writes a fresh decision trace, one step at a time.</p>
+          <h3 id="agentlog-title">The Agent Ledger</h3>
+          <p class="section-note">Each run produces a fresh decision trace, one step at a time.</p>
           <p id="plannerStatus" class="planner-status" role="status"></p>
           <ol id="agentLog" class="log-list">
-            <li class="log-empty">No run yet. Set your moods and press Plan My Afternoon.</li>
+            <li class="log-empty">No run yet. Set your budget and moods, then press Plan My Afternoon.</li>
           </ol>
         </section>
       </div>
@@ -180,10 +234,18 @@
     </section>
 
     <section class="section reveal" id="signature" aria-labelledby="signature-title">
-      <div class="section-head">
-        <h2 id="signature-title">Taste Signature</h2>
-        <p>Two views of the same twenty numbers: a radar for reading and a weave for feeling. Both are drawn by code on a canvas, no images involved.</p>
-      </div>
+      <header class="section-head">
+        <div class="rule-mark" aria-hidden="true">
+          <svg class="thread-mark" viewBox="0 0 96 14" width="96" height="14" focusable="false">
+            <path d="M2 4 C 24 1, 48 12, 94 3" stroke="#E5A83B" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 8 C 30 14, 60 3, 94 9" stroke="#E07A5F" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+            <path d="M2 12 C 26 8, 56 15, 94 12" stroke="#7E9CB9" stroke-width="1.6" fill="none" stroke-linecap="round"></path>
+          </svg>
+          <span class="rule-line"></span>
+        </div>
+        <h2 id="signature-title">The Signature Plate</h2>
+        <p class="section-dek">Two views of the same twenty numbers: a radar for reading and a weave for feeling. Both are drawn in code on a canvas, no images involved.</p>
+      </header>
       <div class="sig-grid">
         <figure class="sig-figure">
           <canvas id="radar" role="img" aria-label="Radar chart of your twenty taste attributes, grouped by domain color"></canvas>
@@ -207,9 +269,11 @@
   </main>
 
   <footer class="site-footer">
-    <p>TasteWeave is a hackathon build for the Qloo Agentic Hackathon. The catalog, the neighbor archetypes, and every score on this page are synthetic and computed locally in your browser. No accounts, no tracking, no network calls.</p>
-    <p>The README documents exactly where the Qloo taste API would replace the synthetic dataset. No live integration is included and none is claimed.</p>
-    <p class="footer-meta">Built by Aariv Patel. Released under the MIT License. Read more in the <a href="README.md">README</a> and <a href="NOTES.md">NOTES</a>.</p>
+    <div class="footer-inner">
+      <p>TasteWeave is a hackathon build for the Qloo Agentic Hackathon. The catalog, the neighbor archetypes, and every score on this page are synthetic and computed locally in your browser. No accounts, no tracking, no network calls.</p>
+      <p>The README documents exactly where the Qloo taste API would replace the synthetic dataset. No live integration is included and none is claimed.</p>
+      <p class="footer-meta">Built by Aariv Patel. Released under the MIT License. Read more in the <a href="README.md">README</a> and <a href="NOTES.md">NOTES</a>.</p>
+    </div>
   </footer>
 </body>
 </html>
