@@ -13,3 +13,5 @@ Built with: vanilla JavaScript, canvas, node:test, and an explainable scoring en
 
 Try it: https://aariv.me/tasteweave/
 Code: https://github.com/draarivpatel-ui/tasteweave
+
+Video URL: https://youtu.be/azYvPgtOCWk
