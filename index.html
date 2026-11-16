@@ -59,7 +59,6 @@
       <div class="hero-grid">
         <div class="hero-copy">
           <h1 id="hero-title">Pull a Thread, Watch Your Taste Answer</h1>
-          <p class="lede">Set five master threads and the loom answers at once. Twenty fine sliders shape it further, an open catalog scores itself against you, and the afternoon planner writes down every choice it makes. Everything runs in this tab, on a labeled synthetic dataset.</p>
           <div class="hero-actions">
             <a class="btn btn-solid" href="#profile">Open the Studio</a>
             <a class="btn btn-ghost" href="#discover">Browse the Catalog</a>
@@ -72,7 +71,6 @@
           </div>
           <fieldset class="master-threads" id="masterThreads">
             <legend>Master Threads</legend>
-            <p class="master-hint">Each thread sets its whole domain at once. Fine tuning lives in the studio below.</p>
           </fieldset>
           <p id="signatureSummary" class="signature-summary" aria-live="polite"></p>
         </div>
@@ -97,11 +95,11 @@
           <span class="rule-line"></span>
         </div>
         <h2 id="profile-title">The Profile Studio</h2>
-        <p class="section-dek">Drag each slider toward the word that sounds like you. Every change reweaves the drawings on this page, rescores the catalog, and updates the planner. Your profile is saved to this browser only.</p>
       </header>
       <div class="profile-tools">
         <button type="button" id="randomize" class="btn btn-ghost">Scatter the Sliders</button>
         <button type="button" id="resetProfile" class="btn btn-ghost">Reset to Neutral</button>
+        <span class="data-badge data-badge-local">Saved in this browser only</span>
       </div>
       <div class="domain-grid">
         <fieldset class="domain-card" data-domain="music">
@@ -138,10 +136,10 @@
           <span class="rule-line"></span>
         </div>
         <h2 id="discover-title">The Discovery Catalog</h2>
-        <p class="section-dek">Forty invented entries across five domains, labeled synthetic everywhere they appear. Similarity is a transparent gap calculation, and every card lists the numbers behind its score.</p>
       </header>
       <fieldset class="filter-bar">
         <legend class="visually-hidden">Filter the feed by domain</legend>
+        <span class="data-badge data-badge-synthetic">Synthetic catalog, 40 invented entries</span>
         <label><input type="radio" name="domain-filter" value="all" checked><span>Everything</span></label>
         <label><input type="radio" name="domain-filter" value="music"><span>Music</span></label>
         <label><input type="radio" name="domain-filter" value="film"><span>Film</span></label>
@@ -152,8 +150,10 @@
       <div class="feed-grid" id="feedGrid"></div>
 
       <div class="neighbors-band">
-        <h3 id="neighbors-title">Taste Neighbors</h3>
-        <p class="section-note">Neighbor archetypes are synthetic taste profiles, not real people. Overlap is scored across all twenty attributes, and the sharpest difference is shown on purpose.</p>
+        <div class="band-head">
+          <h3 id="neighbors-title">Taste Neighbors</h3>
+          <span class="data-badge data-badge-synthetic">Synthetic archetypes, not real people</span>
+        </div>
         <div class="neighbor-list" id="neighborGrid" role="list"></div>
       </div>
     </section>
@@ -169,7 +169,6 @@
           <span class="rule-line"></span>
         </div>
         <h2 id="planner-title">The Afternoon Planner</h2>
-        <p class="section-dek">Set a budget, tilt four moods, and the planner assembles a session: one thing to listen to, one to watch, one to cook, one to read. The ledger writes down every decision in order.</p>
       </header>
       <div class="planner-grid">
         <form id="plannerForm" class="planner-controls">
@@ -192,7 +191,6 @@
                 <output id="mood-energize-out" for="mood-energize">0</output>
               </div>
               <input type="range" id="mood-energize" min="0" max="100" step="1" value="0">
-              <p class="mood-blurb">Loud, fast, bright picks.</p>
             </div>
             <div class="slider-row">
               <div class="slider-head">
@@ -200,7 +198,6 @@
                 <output id="mood-unwind-out" for="mood-unwind">0</output>
               </div>
               <input type="range" id="mood-unwind" min="0" max="100" step="1" value="0">
-              <p class="mood-blurb">Soft, warm, comforting picks.</p>
             </div>
             <div class="slider-row">
               <div class="slider-head">
@@ -208,7 +205,6 @@
                 <output id="mood-focus-out" for="mood-focus">0</output>
               </div>
               <input type="range" id="mood-focus" min="0" max="100" step="1" value="0">
-              <p class="mood-blurb">Quiet, deep, absorbing picks.</p>
             </div>
             <div class="slider-row">
               <div class="slider-head">
@@ -216,14 +212,19 @@
                 <output id="mood-wander-out" for="mood-wander">0</output>
               </div>
               <input type="range" id="mood-wander" min="0" max="100" step="1" value="0">
-              <p class="mood-blurb">Strange, new, exploratory picks.</p>
             </div>
           </fieldset>
-          <button type="submit" class="btn btn-solid" id="planButton">Plan My Afternoon</button>
+          <fieldset class="planner-fieldset strategy-set">
+            <legend>Strategy</legend>
+            <div class="strategy-toggle">
+              <label><input type="radio" name="plan-strategy" value="greedy" checked><span>Slot shares</span></label>
+              <label><input type="radio" name="plan-strategy" value="optimal"><span>Exact optimum</span></label>
+            </div>
+          </fieldset>
+          <button type="submit" class="btn btn-solid" id="planButton">Plan My Afternoon <kbd>P</kbd></button>
         </form>
         <section class="agent-log" aria-labelledby="agentlog-title">
           <h3 id="agentlog-title">The Agent Ledger</h3>
-          <p class="section-note">Each run produces a fresh decision trace, one step at a time.</p>
           <p id="plannerStatus" class="planner-status" role="status"></p>
           <ol id="agentLog" class="log-list">
             <li class="log-empty">No run yet. Set your budget and moods, then press Plan My Afternoon.</li>
@@ -234,6 +235,21 @@
       <div class="pick-grid" id="pickGrid">
         <p class="empty-note">Run the planner to assemble a listen, watch, cook, read session.</p>
       </div>
+      <figure class="frontier-figure" aria-labelledby="frontier-title">
+        <div class="band-head">
+          <h3 id="frontier-title">Taste and Cost Frontier</h3>
+          <span class="data-badge data-badge-computed">Computed in this tab</span>
+        </div>
+        <canvas id="frontierCanvas" role="img" aria-label="Scatter of every complete listen, watch, cook, read plan by total cost and mean fit, with the Pareto frontier drawn as a stepped line, the budget as a dashed rule, the slot-share plan as a ring and the exact optimum as a gold dot"></canvas>
+        <ul class="frontier-key" aria-label="Chart key">
+          <li><span class="key-dot key-plans" aria-hidden="true"></span>Every plan</li>
+          <li><span class="key-line" aria-hidden="true"></span>Frontier</li>
+          <li><span class="key-ring" aria-hidden="true"></span>Slot shares</li>
+          <li><span class="key-dot key-opt" aria-hidden="true"></span>Exact optimum</li>
+          <li><span class="key-dash" aria-hidden="true"></span>Budget</li>
+        </ul>
+        <figcaption id="frontierSummary" class="frontier-summary" aria-live="polite"></figcaption>
+      </figure>
     </section>
 
     <section class="section reveal" id="signature" aria-labelledby="signature-title">
@@ -247,7 +263,6 @@
           <span class="rule-line"></span>
         </div>
         <h2 id="signature-title">The Signature Plate</h2>
-        <p class="section-dek">Two views of the same twenty numbers: a radar for reading and a weave for feeling. Both are drawn in code on a canvas, no images involved.</p>
       </header>
       <div class="sig-grid">
         <figure class="sig-figure">

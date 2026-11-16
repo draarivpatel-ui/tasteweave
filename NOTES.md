@@ -12,15 +12,15 @@ Build notes for TasteWeave, written the morning after the overnight build. Autho
 - A decision trace (`js/engine/trace.js`) with seven phases (read, mood, budget, search, select, review, done), replayed step by step in the Agent Log panel.
 - Two canvas visualizations: a twenty spoke radar with a neutral reference ring, and a woven thread drawing where each domain is a smoothed thread through its four attribute values. Both redraw on every slider move and on resize, throttled through requestAnimationFrame.
 - Accessibility and design floor: semantic landmarks, labeled controls, skip link, focus visible, live status regions, reduced motion support, responsive down to phone widths, system fonts only, no image assets, no emoji icons, no all caps kickers, and no em or en dashes in any UI copy.
-- Four node:test suites under `tests/` covering similarity scoring, itinerary planning, budget handling, and decision trace generation. No network, no installs, runtime is milliseconds.
+- Node:test suites under `tests/` covering similarity scoring, itinerary planning, budget handling, and decision trace generation (four at the overnight build, eight after the optimizer, frontier, shortcut and hygiene work). No network, no installs, runtime is milliseconds.
 
 ## Exact test numbers
 
 Measured on this machine with Node v26.8.1, `node --test tests/`:
 
-- 51 tests, 51 passed, 0 failed, 0 skipped.
-- 283 assertions executed, measured by temporarily wrapping `node:assert/strict` with a counter and running the suites once (the counter script was deleted after the measurement; the runner itself does not report assertion totals).
-- Duration: about 45 milliseconds, far under the 30 second limit.
+- 95 tests, 95 passed, 0 failed, 0 skipped (rerun after the planner eligibility and binary metadata regressions were added).
+- At the overnight build the 51 tests executed 283 assertions, measured by temporarily wrapping `node:assert/strict` with a counter (the counter script was deleted after the measurement; the runner itself does not report assertion totals). The assertion count was not remeasured for the 95 test suite.
+- Duration: well under a second.
 
 Reproduce with `npm test` (or `node --test tests/`).
 
@@ -41,11 +41,11 @@ Reproduce with `npm test` (or `node --test tests/`).
 - Every match shows its math. A transparent gap based similarity engine scores a labeled synthetic catalog, and each card lists the exact attribute gaps and its biggest stretch, no black box anywhere.
 - An agentic afternoon planner takes a budget and four mood weights and assembles a listen, watch, cook, read session, blending 65 percent profile fit with 35 percent mood fit and never spending over budget, even at zero dollars.
 - The Agent Log replays the planner's full decision trace step by step: profile read, mood blend, budget split, per slot search and select with runner ups, and honest downgrades when a top scorer costs too much.
-- Zero dependencies, zero network calls, zero image assets: one static page with code drawn visuals and 51 tests over 283 assertions, plus a documented seam showing exactly where the Qloo taste API would replace the synthetic dataset.
+- Zero dependencies, zero network calls, zero image assets: one static page with code drawn visuals and 95 tests, plus a documented seam showing exactly where the Qloo taste API would replace the synthetic dataset.
 
 ## Summary
 
-TasteWeave is complete and working as specified: a GitHub Pages ready single page app with a transparent similarity engine over a labeled synthetic dataset, an explained discovery feed, a budget and mood aware agentic itinerary planner with a step by step agent log, and two live canvas visualizations of the taste signature. It passes 51 tests with 283 assertions in under a second, claims nothing beyond what ships, and documents the Qloo API seam precisely.
+TasteWeave is complete and working as specified: a GitHub Pages ready single page app with a transparent similarity engine over a labeled synthetic dataset, an explained discovery feed, a budget and mood aware agentic itinerary planner with a step by step agent log, and two live canvas visualizations of the taste signature. It passes 95 tests, claims nothing beyond what ships, and documents the Qloo API seam precisely.
 
 ## Refinement Pass 2026-10-24
 

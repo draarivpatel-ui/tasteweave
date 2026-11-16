@@ -16,6 +16,8 @@ import {
 import { MOODS } from './js/engine/moods.js';
 import { domainFit, domainGaps, explainDomainFit, neighborFit, fitPercent } from './js/engine/similarity.js';
 import { planItinerary, SLOTS } from './js/engine/itinerary.js';
+import { optimizeItinerary, comparePlanners } from './js/engine/optimizer.js';
+import { drawFrontier, frontierSummary } from './js/ui/frontier-view.js';
 import { CATALOG } from './js/data/catalog.js';
 import { NEIGHBORS } from './js/data/personas.js';
 
@@ -36,6 +38,7 @@ const state = {
   moods: { energize: 0, unwind: 0, focus: 0, wander: 0 },
   budget: 40,
   filter: 'all',
+  strategy: 'greedy',
 };
 
 let refreshQueued = false;
@@ -63,6 +66,36 @@ function scheduleRefresh() {
     weaveViews.hero.setProfile(state.profile);
     weaveViews.plate.setProfile(state.profile);
     weaveViews.radar.setProfile(state.profile);
+    renderFrontier();
+  });
+}
+
+/* Frontier */
+
+let frontierQueued = false;
+
+function renderFrontier() {
+  const canvas = $('#frontierCanvas');
+  if (!canvas) return null;
+  const cmp = comparePlanners({ profile: state.profile, moods: state.moods, budget: state.budget, catalog: CATALOG });
+  const { ctx, w, h } = setupCanvas(canvas);
+  drawFrontier(ctx, w, h, {
+    plans: cmp.plans,
+    frontier: cmp.frontier,
+    budget: cmp.budget,
+    greedy: { cost: cmp.greedy.cost, fit: cmp.greedy.meanFit },
+    optimal: { cost: cmp.optimal.cost, fit: cmp.optimal.meanFit },
+  });
+  $('#frontierSummary').textContent = frontierSummary(cmp);
+  return cmp;
+}
+
+function scheduleFrontier() {
+  if (frontierQueued) return;
+  frontierQueued = true;
+  requestAnimationFrame(() => {
+    frontierQueued = false;
+    renderFrontier();
   });
 }
 
@@ -771,9 +804,11 @@ function renderPicks(result) {
   const grid = $('#pickGrid');
   const cards = SLOTS.map((slot) => (result.picks[slot.id] ? pickCard(result.picks[slot.id]) : null)).filter(Boolean);
   grid.replaceChildren(...cards);
+  const tail = result.allocations
+    ? ' Slot shares: ' + SLOTS.map((s) => `${s.verb} $${result.allocations[s.id]}`).join(', ') + '.'
+    : ' Exact optimum: no fixed slot shares, every dollar goes where it buys the most fit.';
   $('#planSummary').textContent =
-    `Total cost $${result.totalCost} of the $${result.budget} budget, $${result.headroom} headroom. Slot shares: ` +
-    SLOTS.map((s) => `${s.verb} $${result.allocations[s.id]}`).join(', ') + '.';
+    `Total cost $${result.totalCost} of the $${result.budget} budget, $${result.headroom} headroom.` + tail;
 }
 
 function stepToLi(step) {
@@ -812,16 +847,16 @@ function renderLog(trace) {
 function runPlanner(event) {
   if (event) event.preventDefault();
   readPlannerControls();
-  const result = planItinerary({
-    profile: state.profile,
-    moods: state.moods,
-    budget: state.budget,
-    catalog: CATALOG,
-  });
+  const checked = document.querySelector('input[name="plan-strategy"]:checked');
+  state.strategy = checked ? checked.value : 'greedy';
+  const args = { profile: state.profile, moods: state.moods, budget: state.budget, catalog: CATALOG };
+  const result = state.strategy === 'optimal' ? optimizeItinerary(args) : planItinerary(args);
   renderPicks(result);
   renderLog(result.trace);
+  const filled = SLOTS.filter((slot) => result.picks[slot.id]).length;
   $('#plannerStatus').textContent =
-    `Planner finished: 4 picks, $${result.totalCost} of $${result.budget} spent, $${result.headroom} left.`;
+    `${state.strategy === 'optimal' ? 'Exact optimizer' : 'Slot-share planner'} finished: ${filled} picks, $${result.totalCost} of $${result.budget} spent, $${result.headroom} left.`;
+  renderFrontier();
   $('#planSummary').scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'nearest' });
 }
 
@@ -860,14 +895,34 @@ function wire() {
   $('#budgetRange').addEventListener('input', (event) => {
     state.budget = Number(event.target.value) || 0;
     $('#budgetOutput').textContent = `$${state.budget}`;
+    scheduleFrontier();
   });
 
   for (const mood of MOODS) {
     $(`#mood-${mood.id}`).addEventListener('input', (event) => {
       state.moods[mood.id] = Number(event.target.value) || 0;
       $(`#mood-${mood.id}-out`).textContent = event.target.value;
+      scheduleFrontier();
     });
   }
+
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+    const target = event.target || {};
+    const tag = String(target.tagName || '').toUpperCase();
+    if (tag === 'TEXTAREA' || target.isContentEditable || (tag === 'INPUT' && target.type !== 'range' && target.type !== 'radio')) return;
+    const key = String(event.key || '').toLowerCase();
+    if (key === 'p') {
+      event.preventDefault();
+      runPlanner();
+    } else if (key === 'o') {
+      event.preventDefault();
+      const checked = document.querySelector('input[name="plan-strategy"]:checked');
+      const next = document.querySelector(`input[name="plan-strategy"][value="${checked && checked.value === 'optimal' ? 'greedy' : 'optimal'}"]`);
+      if (next) next.checked = true;
+      runPlanner();
+    }
+  });
 
   $('#plannerForm').addEventListener('submit', runPlanner);
 
@@ -880,6 +935,7 @@ function wire() {
       weaveViews.hero.resize();
       weaveViews.plate.resize();
       weaveViews.radar.resize();
+      renderFrontier();
     });
   });
 

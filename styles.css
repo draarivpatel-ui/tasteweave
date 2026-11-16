@@ -900,6 +900,12 @@ input[type="range"]:hover::-moz-range-thumb { transform: scale(1.2); }
   gap: var(--space-4);
 }
 
+@media (min-width: 900px) {
+  .pick-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .empty-note {
   grid-column: 1 / -1;
   color: var(--ink-mute);
@@ -1135,4 +1141,206 @@ html.js .reveal.in {
   .site-nav a,
   .filter-bar span,
   .card { transition: none; }
+}
+
+/* Data provenance badges */
+
+.data-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.data-badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.data-badge-synthetic {
+  color: var(--dye-film);
+  border-color: rgba(224, 122, 95, 0.45);
+}
+
+.data-badge-computed {
+  color: var(--gold);
+  border-color: rgba(229, 168, 59, 0.45);
+}
+
+.data-badge-local {
+  color: var(--dye-books);
+  border-color: rgba(126, 156, 185, 0.45);
+}
+
+.filter-bar .data-badge {
+  margin-right: var(--space-3);
+  align-self: center;
+}
+
+.band-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.band-head h3 {
+  margin: 0;
+}
+
+.profile-tools .data-badge {
+  align-self: center;
+}
+
+/* Planner strategy */
+
+.strategy-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.strategy-toggle label {
+  position: relative;
+  display: flex;
+}
+
+.strategy-toggle input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.strategy-toggle span {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-align: center;
+  color: var(--ink-soft);
+  transition: color var(--dur-1) var(--ease-out), border-color var(--dur-1) var(--ease-out), background-color var(--dur-1) var(--ease-out);
+}
+
+.strategy-toggle input:hover + span {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.strategy-toggle input:checked + span {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--ground-3);
+}
+
+.strategy-toggle input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.btn kbd {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Frontier chart */
+
+.frontier-figure {
+  margin: var(--space-8) 0 0;
+  border-top: 1px solid var(--line-soft);
+  padding-top: var(--space-6);
+}
+
+.frontier-figure h3 {
+  font-size: clamp(1.4rem, 1.1rem + 1.4vw, 1.9rem);
+}
+
+#frontierCanvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 7;
+  min-height: 240px;
+  border: 1px solid var(--line-soft);
+  background: var(--ground-2);
+}
+
+.frontier-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.frontier-key li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.key-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.key-plans { background: rgba(206, 192, 170, 0.45); }
+.key-opt { background: var(--gold); }
+
+.key-ring {
+  width: 11px;
+  height: 11px;
+  border: 2px solid var(--dye-books);
+  border-radius: 50%;
+}
+
+.key-line {
+  width: 18px;
+  border-top: 2px solid var(--ink);
+}
+
+.key-dash {
+  width: 18px;
+  border-top: 2px dashed rgba(229, 168, 59, 0.7);
+}
+
+.frontier-summary {
+  margin-top: var(--space-4);
+  max-width: var(--measure);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+@media (max-width: 600px) {
+  .data-badge {
+    white-space: normal;
+  }
+
+  #frontierCanvas {
+    aspect-ratio: 4 / 3;
+  }
 }

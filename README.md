@@ -17,6 +17,8 @@ Everything runs locally in one static page. The catalog, the archetypes, and all
 - Discovery feed: the twelve best matches across the synthetic catalog, or all eight entries for one domain, sortable by the domain filter. Every entry is invented for this project.
 - Taste Neighbors: eight synthetic archetypes scored across all twenty attributes, with the three shared attributes and the single biggest difference shown.
 - Afternoon Planner: a 0 to 80 dollar budget splits into slot shares (Listen 18 percent, Watch 30 percent, Cook 34 percent, Read 18 percent), four mood weights tilt the scores, and the planner picks one item per slot without ever exceeding the budget. Zero budget works: every planner domain keeps zero cost entries in the catalog.
+- Exact optimum planner: a second strategy solves the same budget problem exactly instead of greedily (details below), and the Taste and Cost Frontier chart plots every complete plan so you can see what each extra dollar buys.
+- Keyboard: P plans the afternoon, O switches between slot shares and the exact optimum and plans again. Shortcuts pause while a text field has focus.
 - Agent Log: the planner writes a decision trace (read, mood, budget, search, select, review, done), and the panel replays it one step at a time, including when a top scorer was skipped to stay under budget.
 - Taste Signature: a canvas radar with one spoke per attribute, and a woven thread drawing where each domain is a thread whose height follows its four attribute values. Both redraw as you drag.
 - Accessibility: semantic landmarks, labeled sliders, radio filter, keyboard operable controls, visible focus, skip link, live status regions, and reduced motion support.
@@ -44,6 +46,32 @@ That runs `node --test tests/`, which uses the built in runner. There is nothing
 - Neighbor fit: the same mean gap formula, applied across all twenty attributes at once.
 - Budget: the budget is floored into slot shares, each slot picks its best scoring affordable item, and the leftover becomes headroom. Invalid budgets are treated as zero.
 
+## Exact optimum and the taste and cost frontier
+
+The original planner is greedy: it fixes each slot's share of the budget first, then picks the best affordable item inside each share. That is easy to explain, but it can leave fit on the table. `js/engine/optimizer.js` solves the same problem exactly. Choosing one item per slot with a total cost within budget is a multiple-choice knapsack, solved by dynamic programming over every whole-dollar spend from zero to the budget. More filled slots always win, then higher total fit, then lower cost. Slot scores are the same ones the greedy planner uses. Before comparison, both strategies use the same eligible candidates, including minimum fit requirements and excluded items.
+
+The frontier view enumerates all 4096 complete plans (8 candidates in each of the 4 slots), places each on a cost and mean fit plane, and draws the Pareto frontier: the plans no other plan beats on both cost and fit.
+
+For the default neutral profile with no mood set (numbers from the current code):
+
+| Budget | Slot shares (mean fit, cost) | Exact optimum (mean fit, cost) |
+| --- | --- | --- |
+| `$0` | 85, `$0` | 85, `$0` |
+| `$20` | 85, `$0` | 87, `$14` |
+| `$40` | 85, `$0` | 88, `$30` |
+| `$60` | 88, `$30` | 89, `$44` |
+| `$80` | 89, `$44` | 89, `$44` |
+
+At `$40` the slot-share split leaves every slot with too little to buy its best item, so it picks four free entries. The optimizer moves the money to the film and food slots, where it buys the most fit.
+
+How the optimizer is checked:
+
+- It matches an independent brute force (every slot may also stay empty) on 120 seeded random profiles, mood blends and budgets, including runs with a minimum slot fit.
+- The best frontier plan within a budget equals the optimizer's answer on 25 more seeded cases.
+- It never exceeds the budget, never scores below the greedy planner, and its fit never drops as the budget rises.
+
+Nutrition is not modeled. The catalog has no nutrition data, and inventing nutrition figures for invented dishes would put made-up measurements on screen, so the frontier trades taste against cost only.
+
 ## Where the Qloo taste API would plug in
 
 The shipped app makes no network calls and includes no API keys. The dataset is synthetic by design, and the code is arranged so a live integration would replace data, not logic:
@@ -61,14 +89,18 @@ All 40 catalog entries, all 8 neighbor archetypes, and the default profile are i
 
 ## Tests
 
-`npm test` runs four suites with the Node built in runner:
+`npm test` runs eight files (95 tests) with the Node built in runner:
 
 - `tests/similarity.test.js`: fit bounds, gap ordering, explanation shape, symmetry, mood alignment.
 - `tests/itinerary.test.js`: slot filling, domain correctness, zero budget sessions, upgrades, downgrades, blend weights.
 - `tests/budget.test.js`: share allocation, sanitizing, and a sweep that plans real sessions across six budgets.
 - `tests/trace.test.js`: trace shape, phase order, select step payloads, JSON serialization.
+- `tests/optimizer.test.js` (16): brute force cross-checks, budget and monotonicity invariants, constraints shared by both planners, frontier dominance, and a regression pin for the default profile.
+- `tests/frontier-ui.test.js` (11): the frontier chart against a recording canvas, the summary text, the strategy controls, manual radio changes followed by the `O` shortcut, the data badges and the page design rules.
+- `tests/dom-smoke.test.js` (13): static page and accessibility checks.
+- `tests/repository-hygiene.test.js` (4): encoded and binary probes, guards across all text files and binary metadata and a check for temporary files or caches.
 
-Current run: 51 tests, 283 assertions, all passing, in well under a second. No network access is used at any point.
+Current run: 95 tests, all passing. No network access is used at any point.
 
 ## Project structure
 
@@ -82,15 +114,17 @@ tasteweave/
   js/engine/similarity.js fit, gaps, explanations, neighbor fit
   js/engine/itinerary.js  slots, budget, planner, blend
   js/engine/trace.js      decision trace
+  js/engine/optimizer.js  exact budget optimizer and Pareto frontier
+  js/ui/frontier-view.js  frontier chart drawing (pure, testable)
   js/data/catalog.js      synthetic catalog (the first API seam)
   js/data/personas.js     synthetic archetypes (the second API seam)
-  tests/                  four node:test suites
+  tests/                  eight node:test files
   README.md  NOTES.md  LICENSE
 ```
 
 ## Design notes
 
-The palette is a warm dark loom room with five thread colors, one per domain, carried through the sliders, the chips, the meters, the log phases, and both canvas drawings. Headings use a system serif stack, the body uses the system sans stack, and the agent log uses a mono stack. No image assets exist: the mark is inline SVG and both visualizations are drawn in code. The interface avoids em dashes, en dashes, all caps kickers, and emoji by design.
+The palette is a warm dark loom room with five thread colors, one per domain, carried through the sliders, the chips, the meters, the log phases, and both canvas drawings. Headings use a system serif stack, the body uses the system sans stack, and the agent log uses a mono stack. No image assets exist: the mark is inline SVG and both visualizations are drawn in code. The interface avoids em dashes, en dashes, all caps kickers, and emoji by design, and section titles stand alone with no tagline under them. Synthetic and computed data carry visible badges.
 
 ## License
 
