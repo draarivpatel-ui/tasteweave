@@ -36,7 +36,7 @@ Run the tests with Node 18 or newer:
 npm test
 ```
 
-That runs `node --test tests/`, which uses the built in runner. There is nothing to install.
+That runs `node --test tests/*.test.js`, which uses the built in runner. There is nothing to install.
 
 ## How the scoring works
 
