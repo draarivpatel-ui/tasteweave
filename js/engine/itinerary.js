@@ -3,7 +3,7 @@
 // decision trace the agent log can replay. Data agnostic: it takes whatever
 // catalog it is handed, so a real taste API could replace the synthetic one.
 
-import { DOMAINS, ATTRIBUTES, TOTAL_ATTRIBUTES, standouts } from './profile.js';
+import { DOMAINS, TOTAL_ATTRIBUTES, standouts } from './profile.js';
 import { domainFit, moodAlignment, explainDomainFit, fitPercent } from './similarity.js';
 import { flattenMoods, moodMass } from './moods.js';
 import { createTrace } from './trace.js';

@@ -3,9 +3,6 @@
 // explained overlap. This module is the second documented seam where a live
 // taste API would plug in.
 
-export const NEIGHBORS_NOTE =
-  'Synthetic archetypes: 8 invented profiles used to demonstrate neighbor matching. Not real people.';
-
 export const NEIGHBORS = [
   {
     id: 'night-market-walker',
