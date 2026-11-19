@@ -3,16 +3,6 @@
 
 export const PHASES = ['read', 'mood', 'budget', 'search', 'select', 'review', 'done'];
 
-export const PHASE_LABELS = {
-  read: 'Read',
-  mood: 'Mood',
-  budget: 'Budget',
-  search: 'Search',
-  select: 'Select',
-  review: 'Review',
-  done: 'Done',
-};
-
 export function createTrace() {
   const steps = [];
 

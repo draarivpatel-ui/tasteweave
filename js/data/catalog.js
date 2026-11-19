@@ -3,9 +3,6 @@
 // engine. Nothing in this file describes a real release, venue or dish.
 // This module is the documented seam where a live taste API would plug in.
 
-export const CATALOG_NOTE =
-  'Synthetic catalog: 40 invented entries across 5 domains, labeled synthetic everywhere it appears.';
-
 export const CATALOG = [
   // MUSIC (8). Slot: listen.
   {

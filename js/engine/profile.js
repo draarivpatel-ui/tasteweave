@@ -57,14 +57,6 @@ export function attrIds() {
   return keys;
 }
 
-export function attrDef(key) {
-  const [domain, attr] = key.split('.');
-  for (const a of ATTRIBUTES[domain]) {
-    if (a.id === attr) return { domain, ...a };
-  }
-  return null;
-}
-
 export function clampAttr(value) {
   const n = Number(value);
   if (!Number.isFinite(n)) return NEUTRAL;
